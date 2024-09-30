@@ -5,6 +5,13 @@
 //  Created by Arsalan Wahid Asghar on 9/30/24.
 //
 
+
+/**
+ 
+ All of the CRUD functions for each model or multiple model making a view are transformed here.
+ The logic is seperated from the UI and in the future can use firebase all to call APIs that will be defined and managed here
+
+ */
 import Foundation
 
 class ListViewModel:ObservableObject {
@@ -37,5 +44,11 @@ class ListViewModel:ObservableObject {
         items.append(item)
     }
     
+    //How does this work review later
+    func updateItem(item:ItemModel) {
+        if let index = items.firstIndex(where: { $0.id == item.id}) {
+            items[index] = item.updateCompletion()
+        }
+    }
     
 }

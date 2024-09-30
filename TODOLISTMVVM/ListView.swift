@@ -24,10 +24,15 @@ struct ListView: View {
     //Since the itemModel conforms to Idetifiable we dont needs the id param as each item already has its own ID Cool :-)
     var body: some View {
         List {
+
             Section(header: Text("23rd Sep 2024").fontWeight(.bold)) {
                 ForEach(listViewModel.items) {
                     item in
-                    ListRowView(item: item)
+                    ListRowView(item: item).onTapGesture {
+                        withAnimation {
+                            listViewModel.updateItem(item: item)
+                        }
+                    }
                 }.onDelete(perform: listViewModel.delteItem)
                     .onMove(perform: listViewModel.moveItem)
             }
