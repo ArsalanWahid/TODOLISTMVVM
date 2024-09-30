@@ -11,6 +11,8 @@ struct AddView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var listViewModel:ListViewModel
     @State var textFieldText:String = ""
+    @State var alertTitle:String = ""
+    @State var showAlert:Bool = false
     
     var body: some View {
         ScrollView {
@@ -31,11 +33,28 @@ struct AddView: View {
                 })
             }.padding(14)
         }.navigationTitle("Add an Item 🖊️")
+            .alert(isPresented: $showAlert,content: getAlert)
     }
     
     func saveButton() {
-        listViewModel.addItem(item: textFieldText)
-        presentationMode.wrappedValue.dismiss()
+        if textValidation() {
+            listViewModel.addItem(item: textFieldText)
+            presentationMode.wrappedValue.dismiss()
+        }
+        
+    }
+    
+    func textValidation() -> Bool {
+        if textFieldText.count < 3 {
+            alertTitle = "Count less than 3"
+            showAlert.toggle()
+            return false
+        }
+        return true
+    }
+    
+    func getAlert() -> Alert{
+        Alert(title: Text(alertTitle))
     }
 }
 
