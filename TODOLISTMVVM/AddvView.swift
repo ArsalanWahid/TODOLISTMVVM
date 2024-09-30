@@ -36,7 +36,7 @@ struct AddvView: View {
 }
 
 #Preview {
-    NavigationView{
+    NavigationStack{
         AddvView()
     }
     
